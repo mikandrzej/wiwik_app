@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>EgMenu.qml</file>
+        <file>EgMenuItem.qml</file>
+        <file>EgLiveView.qml</file>
+        <file>EgHistory.qml</file>
+        <file>EgVEhicleList.qml</file>
+        <file>EgChartData.qml</file>
+        <file>EgChartView.qml</file>
+    </qresource>
+</RCC>
