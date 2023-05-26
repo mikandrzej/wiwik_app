@@ -1,26 +1,32 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 
-#include "qmlplot.h"
+#include "egapplication.h"
+#include "eghistoricalchart.h"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+  QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
-    QApplication app(argc, argv);
+  QApplication app(argc, argv);
 
-    QQmlApplicationEngine engine;
+  QQmlApplicationEngine engine;
 
-    qmlRegisterType<CustomPlotItem>("CustomPlot", 1, 0, "CustomPlotItem");
+  EgApplication myApp;
 
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [url](QObject *obj, const QUrl &objUrl) {
+  engine.rootContext()->setContextProperty("myApp", &myApp);
+
+  qmlRegisterType<EgHistoricalChart>("EgChart", 1, 0, "EgHistoricalChart");
+
+  const QUrl url(QStringLiteral("qrc:/main.qml"));
+  QObject::connect(
+      &engine, &QQmlApplicationEngine::objectCreated, &app,
+      [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)
-            QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
-    engine.load(url);
+          QCoreApplication::exit(-1);
+      },
+      Qt::QueuedConnection);
+  engine.load(url);
 
-    return app.exec();
+  return app.exec();
 }

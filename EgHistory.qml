@@ -9,6 +9,7 @@ Item {
         EgVEhicleList {
             Layout.minimumWidth: 200
             Layout.fillHeight: true
+            clip: true
         }
 
         // wyswietlanie wykresu

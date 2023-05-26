@@ -1,49 +1,63 @@
 import QtQuick 2.15
+import QtQuick.Dialogs 1.3
 
 Item {
     id: rootItem
+
+    property color selectedVehicleColor: "#622A56"
+    property color idleVehicleColor: "transparent"
+    property color frameColor: "#F9B3D1"
+    property color textColor: "#F9B3D1"
+
     ListView {
         anchors.fill: parent
-        model: [
-            {id: 0, name: "Payday", plateNo: "PRA2931",  selectedToView: false, color: "#F0C97A"},
-            {id: 1, name: "Gandalf",   plateNo: "WMA7230",   selectedToView: false, color: "#6DF7F7"},
-            {id: 2, name: "Devil",  plateNo: "KDA5860",  selectedToView: true, color: "#6EE0C0"},
-            {id: 3, name: "Clueless",  plateNo: "ZGY5439",  selectedToView: true, color: "#6DF7A9"},
-            {id: 4, name: "Tone Zone",  plateNo: "CMG9372",  selectedToView: true, color: "#68ED7C"},
-            {id: 5, name: "Chicle",  plateNo: "ZDR5633",  selectedToView: true, color: "#ED816D"},
-            {id: 6, name: "Baby Grand",  plateNo: "FSW0791",  selectedToView: true, color: "#B070FA"},
-            {id: 7, name: "Scar Face",  plateNo: "WD49039",  selectedToView: true, color: "#72D3E0"},
-        ]
+
+        model: myApp.vehicleListModel
 
         delegate: Rectangle {
             height: 50
             width: rootItem.width
-            border.color: "#202020"
+            border.color: frameColor
             id: delegateItem
 
-            color: modelData.selectedToView ? "white" : "#D0D0D0"
-
-            Rectangle {
-                color: modelData.color
-                height: delegateItem.height / 3
-                width: height
-                y: height
-                x: 10
-            }
-
-            Text {
-                text: modelData.name
-                font.pixelSize: delegateItem.height / 3
-                x: 50
-                y: delegateItem.height / 3
-            }
+            color: model.selectedToView ? selectedVehicleColor : idleVehicleColor
 
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    console.log("vehicle " + modelData.name + " clicked")
+                    model.selectedToView = !model.selectedToView
                 }
             }
+
+            Rectangle {
+                color: model.color
+                height: delegateItem.height / 3
+                width: height
+                y: height
+                x: 10
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: colorDialog.visible = true
+                }
+
+                ColorDialog{
+                    visible: false
+                    id: colorDialog
+                    color: model.color
+                    onAccepted: {
+                        model.color = colorDialog.color
+                    }
+                }
+            }
+
+            Text {
+                text: model.name
+                font.pixelSize: delegateItem.height / 3
+                x: 50
+                y: delegateItem.height / 3
+                color: textColor
+            }
+
         }
     }
 }

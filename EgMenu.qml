@@ -6,15 +6,18 @@ Item {
     property string selectedItem: ""
 
     ListView {
+        orientation: ListView.Horizontal
         anchors.fill: parent
         model: items
         delegate:
             EgMenuItem {
-            height: 50
-            width: rootItem.width
-            text: modelData.text
-            color: modelData.text === selectedItem ? modelData.colorSelected : modelData.color
 
+            height: parent.height
+            text: modelData.text
+            selectedColor: "#F9B3D1"
+            idleColor: "#C62E65"
+            isSelected: modelData.text === selectedItem
+            iconPath: modelData.iconPath
             MouseArea {
                 anchors.fill: parent
                 onClicked: {

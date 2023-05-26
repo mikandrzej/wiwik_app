@@ -8,5 +8,8 @@
         <file>EgVEhicleList.qml</file>
         <file>EgChartData.qml</file>
         <file>EgChartView.qml</file>
+        <file>icons/clock-rotate-left-solid.svg</file>
+        <file>icons/intercom.svg</file>
+        <file>icons/satellite-dish-solid.svg</file>
     </qresource>
 </RCC>

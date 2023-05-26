@@ -12,11 +12,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick PrintSupport)
 
+add_library(CustomPlot STATIC
+    qmlplot.cpp qmlplot.h
+    qcustomplot.cpp qcustomplot.h
+)
+target_link_libraries(CustomPlot PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::PrintSupport)
+
 set(PROJECT_SOURCES
         main.cpp
         qml.qrc
-        qmlplot.cpp qmlplot.h
-        qcustomplot.cpp qcustomplot.h
+        eghistoricalchart.h eghistoricalchart.cpp
+        egapplication.h egapplication.cpp
+        egvehiclelistmodel.h egvehiclelistmodel.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -43,7 +50,7 @@ else()
 endif()
 
 target_link_libraries(wiwik_app_v2
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::PrintSupport)
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::PrintSupport CustomPlot)
 
 set_target_properties(wiwik_app_v2 PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
