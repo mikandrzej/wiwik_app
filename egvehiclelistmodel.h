@@ -34,6 +34,9 @@ public:
                int role) override;
   QHash<int, QByteArray> roleNames() const override;
 
+  void overrideData(QList<EgVehicleListModelData> &newData);
+  QList<int> getSelectedVehicleList();
+
 private:
   QList<EgVehicleListModelData> m_data;
 };

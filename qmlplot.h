@@ -28,8 +28,9 @@ protected:
 
   virtual void timerEvent(QTimerEvent *event);
 
-private:
   QCustomPlot *m_CustomPlot;
+
+private:
   int m_timerId;
 
 private slots:

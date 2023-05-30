@@ -6,16 +6,13 @@ import QtQuick.Controls 1.4 as OldControls
 Item {
     id: rootItem
 
-    property date dateFrom: new Date(2023, 5, 20)
-    property date dateTo: new Date(2023,05,22)
-
     Popup {
         id: popupFrom
         modal: true
         visible: false
         OldControls.Calendar {
-            selectedDate: dateFrom
-            onSelectedDateChanged: dateFrom = selectedDate
+            selectedDate: myApp.timestampFrom
+            onSelectedDateChanged: myApp.timestampFrom = selectedDate
         }
     }
 
@@ -35,7 +32,7 @@ Item {
         color: defaultTextColor
         font.pixelSize: 12
         font.bold: true
-        text: dateFrom.toLocaleDateString()
+        text: myApp.timestampFrom.toLocaleDateString()
         horizontalAlignment: Text.AlignLeft
 
         MouseArea {
@@ -50,8 +47,8 @@ Item {
         visible: false
         OldControls.Calendar {
             id: calendar
-            selectedDate: dateTo
-            onSelectedDateChanged: dateTo = selectedDate
+            selectedDate: myApp.timestampTo
+            onSelectedDateChanged: myApp.timestampTo = selectedDate
         }
     }
     Text {
@@ -69,12 +66,12 @@ Item {
         color: defaultTextColor
         font.pixelSize: 12
         font.bold: true
-        text: dateTo.toLocaleDateString()
+        text: myApp.timestampTo.toLocaleDateString()
         horizontalAlignment: Text.AlignLeft
 
         MouseArea {
             anchors.fill: parent
-            onClicked:                popupTo.open()
+            onClicked: popupTo.open()
         }
     }
 
@@ -82,6 +79,7 @@ Item {
         y: 25
         x: 5
         text: "Pobierz dane"
+        onClicked: myApp.getChartData()
     }
 
 }

@@ -1,15 +1,7 @@
 #include "egvehiclelistmodel.h"
 
 EgVehicleListModel::EgVehicleListModel(QObject *parent)
-    : QAbstractListModel{parent} {
-
-  m_data.append(EgVehicleListModelData{1, "skoda", "PSZ12345", false,
-                                       QColorConstants::Red});
-  m_data.append(EgVehicleListModelData{2, "volkswagen", "PZ 1234", false,
-                                       QColorConstants::Blue});
-  m_data.append(EgVehicleListModelData{3, "toyota", "WW 55446", true,
-                                       QColorConstants::Gray});
-}
+    : QAbstractListModel{parent} {}
 
 int EgVehicleListModel::rowCount(const QModelIndex &parent) const {
   if (parent.isValid()) {
@@ -84,4 +76,21 @@ QHash<int, QByteArray> EgVehicleListModel::roleNames() const {
       {ColorRole, "color"}};
 
   return roles;
+}
+
+void EgVehicleListModel::overrideData(QList<EgVehicleListModelData> &newData) {
+  beginResetModel();
+  m_data = newData;
+  endResetModel();
+}
+
+QList<int> EgVehicleListModel::getSelectedVehicleList() {
+  QList<int> retval;
+  foreach (auto veh, m_data) {
+    if (veh.selectedToView) {
+      retval.append(veh.id);
+    }
+  }
+
+  return retval;
 }

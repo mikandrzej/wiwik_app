@@ -5,15 +5,16 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Styles 1.4
 
 ApplicationWindow {
+    property color defaultTextColor: "#F9B3D1"
+    property color defaultBackgroundColor: "#140B1F"
+
     width: 1200
     height: 800
     visible: true
     title: qsTr("Hello World")
     id: rootItem
 
-    color: "#140B1F"
-
-    property color defaultTextColor: "#F9B3D1"
+    color: defaultBackgroundColor
 
     menuBar:
         EgMenu {

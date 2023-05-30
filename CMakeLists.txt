@@ -24,6 +24,7 @@ set(PROJECT_SOURCES
         eghistoricalchart.h eghistoricalchart.cpp
         egapplication.h egapplication.cpp
         egvehiclelistmodel.h egvehiclelistmodel.cpp
+        egdataprovider.h egdataprovider.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

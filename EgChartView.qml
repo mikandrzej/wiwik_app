@@ -5,7 +5,9 @@ Item {
     EgHistoricalChart {
         id: customPlot
         anchors.fill: parent
+        foregroundColor: defaultTextColor
+        backgroundColor: defaultBackgroundColor
 
-//        Component.onCompleted: initCustomPlot()
+        Component.onCompleted: showTestData()
     }
 }

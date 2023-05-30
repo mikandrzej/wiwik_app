@@ -3,7 +3,7 @@
 #include <QDebug>
 
 CustomPlotItem::CustomPlotItem(QQuickItem *parent)
-    : QQuickPaintedItem(parent), m_CustomPlot(nullptr), m_timerId(0) {
+    : QQuickPaintedItem(parent), m_timerId(0) {
   setFlag(QQuickItem::ItemHasContents, true);
   setAcceptedMouseButtons(Qt::AllButtons);
 
@@ -11,6 +11,11 @@ CustomPlotItem::CustomPlotItem(QQuickItem *parent)
           &CustomPlotItem::updateCustomPlotSize);
   connect(this, &QQuickPaintedItem::heightChanged, this,
           &CustomPlotItem::updateCustomPlotSize);
+
+  m_CustomPlot = new QCustomPlot();
+  connect(m_CustomPlot, &QCustomPlot::afterReplot, this,
+          &CustomPlotItem::onCustomReplot);
+  updateCustomPlotSize();
 }
 
 CustomPlotItem::~CustomPlotItem() {
@@ -23,8 +28,6 @@ CustomPlotItem::~CustomPlotItem() {
 }
 
 void CustomPlotItem::initCustomPlot() {
-  m_CustomPlot = new QCustomPlot();
-
   updateCustomPlotSize();
   m_CustomPlot->addGraph();
   m_CustomPlot->graph(0)->setPen(QPen(Qt::red));
@@ -35,9 +38,6 @@ void CustomPlotItem::initCustomPlot() {
   m_CustomPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
 
   startTimer(1);
-
-  connect(m_CustomPlot, &QCustomPlot::afterReplot, this,
-          &CustomPlotItem::onCustomReplot);
 
   m_CustomPlot->replot();
 }
