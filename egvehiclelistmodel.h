@@ -36,6 +36,7 @@ public:
 
   void overrideData(QList<EgVehicleListModelData> &newData);
   QList<int> getSelectedVehicleList();
+  QColor getVehicleColor(int id);
 
 private:
   QList<EgVehicleListModelData> m_data;

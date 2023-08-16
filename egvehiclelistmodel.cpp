@@ -94,3 +94,11 @@ QList<int> EgVehicleListModel::getSelectedVehicleList() {
 
   return retval;
 }
+
+QColor EgVehicleListModel::getVehicleColor(int id) {
+  for (auto &vehicle : m_data) {
+    if (vehicle.id == id)
+      return vehicle.color;
+  }
+  return QColorConstants::White;
+}

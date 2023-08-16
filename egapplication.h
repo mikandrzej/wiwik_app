@@ -21,6 +21,9 @@ public:
 
   Q_INVOKABLE void getChartData();
 
+  Q_INVOKABLE void
+  setHistoricalChartView(EgHistoricalChart *newHistoricalChartView);
+
 signals:
 
   void timestampFromChanged();
@@ -28,6 +31,7 @@ signals:
 
 private:
   EgVehicleListModel *m_vehicleListModel;
+  EgHistoricalChart *m_historicalChartView;
   EgDataProvider m_dataProvider;
   Q_PROPERTY(
       EgVehicleListModel *vehicleListModel READ vehicleListModel CONSTANT)

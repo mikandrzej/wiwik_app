@@ -24,6 +24,8 @@ EgHistoricalChart::EgHistoricalChart(QQuickItem *parent)
   dateTicker->setDateTimeFormat("hh:mm dd/MM/yyyy");
   m_CustomPlot->xAxis->setTicker(dateTicker);
 
+  m_CustomPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+
   m_CustomPlot->replot();
 }
 
@@ -77,8 +79,9 @@ void EgHistoricalChart::setChartData(EgHistoricalChartData &newData) {
     auto *graph = m_CustomPlot->addGraph();
 
     graph->setPen(QPen(serie.m_color));
-    graph->setName(serie.m_name);
+    graph->setName(serie.m_vehicleName);
     graph->setData(serie.m_x, serie.m_y);
+    graph->setLineStyle(QCPGraph::lsLine);
     graph->rescaleAxes(true);
   }
 
@@ -92,7 +95,7 @@ void EgHistoricalChart::showTestData() {
   chartData.m_timestampTo = QDateTime(QDate(2023, 1, 2), QTime(0, 0));
 
   EgHistoricalChartSeriesData series1;
-  series1.m_name = "Fiat";
+  series1.m_vehicleName = "Fiat";
   series1.m_color = QColorConstants::Yellow;
 
   series1.m_x = {(double)QDateTime(QDate(2023, 1, 1), QTime(0, 0)).toTime_t(),
@@ -105,7 +108,7 @@ void EgHistoricalChart::showTestData() {
 
   chartData.m_series.append(series1);
 
-  series1.m_name = "Skoda";
+  series1.m_vehicleName = "Skoda";
   series1.m_color = QColorConstants::Blue;
 
   series1.m_x = {(double)QDateTime(QDate(2023, 1, 1), QTime(1, 0)).toTime_t(),

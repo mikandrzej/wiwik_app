@@ -1,6 +1,7 @@
 #ifndef EGDATAPROVIDER_H
 #define EGDATAPROVIDER_H
 
+#include "eghistoricalchart.h"
 #include "egvehiclelistmodel.h"
 
 #include <QNetworkAccessManager>
@@ -25,11 +26,14 @@ public:
 
   void requestVehiclesTemperatureData(EgDataProviderVehicleListData &data);
 
-signals:
+  void setOnChartDataReady(const std::function<void (EgHistoricalChartData &)> &newOnChartDataReady);
+
+  signals:
 
 private:
   QNetworkAccessManager m_netAccMgr;
   std::function<void(QList<EgVehicleListModelData> &)> m_onVehicleListReady;
+  std::function<void(EgHistoricalChartData &)> m_onChartDataReady;
 };
 
 #endif // EGDATAPROVIDER_H

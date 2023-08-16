@@ -8,6 +8,13 @@ EgApplication::EgApplication(QObject *parent) : QObject{parent} {
         m_vehicleListModel->overrideData(data);
       });
 
+  m_dataProvider.setOnChartDataReady([this](EgHistoricalChartData &data) {
+    for (auto &serie : data.m_series) {
+      serie.m_color = m_vehicleListModel->getVehicleColor(serie.m_vehicleId);
+    }
+    m_historicalChartView->setChartData(data);
+  });
+
   m_dataProvider.requestVehicleList();
 }
 
@@ -38,4 +45,9 @@ void EgApplication::getChartData() {
       m_vehicleListModel->getSelectedVehicleList(), m_timestampFrom,
       m_timestampTo};
   m_dataProvider.requestVehiclesTemperatureData(requestData);
+}
+
+void EgApplication::setHistoricalChartView(
+    EgHistoricalChart *newHistoricalChartView) {
+  m_historicalChartView = newHistoricalChartView;
 }

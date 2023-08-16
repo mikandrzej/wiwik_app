@@ -6,7 +6,8 @@
 #include <QObject>
 
 struct EgHistoricalChartSeriesData {
-  QString m_name;
+  int m_vehicleId;
+  QString m_vehicleName;
   QColor m_color;
   QVector<double> m_x;
   QVector<double> m_y;
